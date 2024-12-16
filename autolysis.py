@@ -16,9 +16,9 @@ if len(sys.argv) != 2:
     print("Usage: uv run b.py <csv_file>")
     sys.exit(1)
 
-def save_plot(fig, filename):
-    filepath = os.path.join(os.getcwd(), filename)
-    fig.savefig(filepath, bbox_inches="tight")
+def save_plot(fig, file_name):
+    file_path = os.path.join(os.getcwd(), file_name)
+    fig.savefig(file_path, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -57,10 +57,10 @@ def generate_visualizations_in_dir(data, directory):
     numerical_cols = data.select_dtypes(include=["float64", "int64"]).columns
     if len(numerical_cols) > 1:
         plt.figure(figsize=(10, 8))
-        correlation_matrix = data[numerical_cols].corr()
-        sns.heatmap(correlation_matrix, annot=True, fmt=".2f", cmap="coolwarm")
+        correlation_mat = data[numerical_cols].corr()
+        sns.heatmap(correlation_mat, annot=True, fmt=".2f", cmap="coolwarm")
         plt.title("Correlation Heatmap")
-        plt.savefig(os.path.join(directory, "correlation_heatmap.png"))
+        plt.savefig(os.path.join(directory, "heatmap.png"))
         plt.close()
 
     # Distribution plot for the first numerical column
@@ -68,7 +68,7 @@ def generate_visualizations_in_dir(data, directory):
         plt.figure(figsize=(8, 6))
         sns.histplot(data[numerical_cols[0]], kde=True, color="blue")
         plt.title(f"Distribution of {numerical_cols[0]}")
-        plt.savefig(os.path.join(directory, f"distribution_{numerical_cols[0]}.png"))
+        plt.savefig(os.path.join(directory, f"distri_{numerical_cols[0]}.png"))
         plt.close()
 
     # Pairplot for the first few numerical columns (if more than 2 exist)
